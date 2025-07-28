@@ -8,7 +8,6 @@ import api from "../../services/api";
 import { useRouter } from "next/navigation";
 import { handleLogin } from "../../lib/integration";
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
-
 import Link from "next/link";
 import Image from "next/image";
 

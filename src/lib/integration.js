@@ -1,7 +1,6 @@
 import api from "../services/api";
 import { getInfo } from "./getInfo";
-import { getCookie, deleteAllCookies } from "./cookie";
-
+import { getCookie, deleteAllCookies, setCookie } from "./cookie";
 export async function handleLogin(e, setLoading, router) {
     e.preventDefault();
     setLoading(true);
@@ -9,20 +8,11 @@ export async function handleLogin(e, setLoading, router) {
         const response = await api.post("/auth/login", { email: e.target.email.value, password: e.target.password.value, })
             .then((res) => res.data);
         if (response?.token && response?.userId) {
-            const expires = new Date(Date.now() + 24 * 60 * 60 * 1000).toUTCString();
-            document.cookie = `auth_token=${response.token}; expires=${expires}; path=/`;
-            document.cookie = `auth_userID=${response.userId}; expires=${expires}; path=/`;
+            setCookie("auth_token", response.token, 1)
+            setCookie("auth_userID", response.userId, 1)
+            setCookie("auth_email", response.user.email, 1)
+            setCookie("auth_nome", response.user.email, 1)
             router.push("/dashboard");
-            // setTimeout(async () => {
-            //     const info = await getInfo();
-            //     const token = getCookie('auth_token');
-            //     const userID = getCookie('auth_userID');
-            //     if (info && token && userID) {
-            //     } else {
-            //         alert("Erro ao obter informações do usuário. Tente novamente.");
-            //     }
-            //     setLoading(false);
-            // }, 100);
         } else {
             setLoading(false);
             alert("Usuário ou senha inválidos.");

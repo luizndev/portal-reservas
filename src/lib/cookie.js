@@ -6,6 +6,11 @@ export function getCookie(name) {
   return null;
 }
 
+export function setCookie(name, value, days = 7) {
+  if (typeof document === "undefined") return;
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+}
 
 export function deleteAllCookies() {
     document.cookie.split(';').forEach(cookie => {
