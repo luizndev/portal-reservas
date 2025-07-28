@@ -3,23 +3,26 @@
 import { useState } from "react";
 import Image from "next/image"
 import { Input } from "../../components/ui/input"
+import { handleRegister } from "../../lib/integration"; // Assuming you have a handleRegister function to manage registration logic
 import { Button } from "../../components/ui/button";
 import Link from "next/link";
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
  
 const Page = () => {
   const [passwordView, setPasswordView] = useState(false)
   const [loading, setLoading] = useState(false)
+  const router = useRouter();
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setLoading(true)
-  }
+  // const handleRegister = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true)
+  // }
   return (
     <section className="w-full min-h-screen flex flex-col items-center justify-center">
       <Image width={200} height={150} src="/Logotype.svg" alt="Logo Anhanguera" />
 
-      <form onSubmit={handleRegister} className="shadow-sm p-6 rounded-xl bg-white box space-y-4 w-full max-w-sm mt-6">
+      <form onSubmit={(e) => handleRegister(e, setLoading, router)} className="shadow-sm p-6 rounded-xl bg-white box space-y-4 w-full max-w-sm mt-6">
        <div>
         <p className="leading-7 text-[#00000041]">Registre-se no</p>
         <h2 className="scroll-m-20 pb-2 text-3xl font-bold tracking-tight ">Portal de Reservas</h2>   
