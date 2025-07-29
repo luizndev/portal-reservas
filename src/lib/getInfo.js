@@ -12,7 +12,7 @@ export async function getInfo() {
             { headers: { Authorization: `Bearer ${token}` } }
         ).then((res) => res.data)
         .then((data) => {
-            console.log(data.user);
+            // console.log(data.user);
             if(data.user){
                 const expires = new Date(Date.now() + 24 * 60 * 60 * 1000).toUTCString();
                 document.cookie = `auth_nome=${data.user.name}; expires=${expires}; path=/`;

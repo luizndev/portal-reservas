@@ -1,6 +1,6 @@
 import "./globals.css";
 import CheckSessionClient from "../lib/CheckSessionClient"
-
+import { Toaster } from "../../@/components/ui/sonner"
 
 export const metadata = {
   title: "Portal de Reservas | Anhanguera Teixeira de Freitas",
@@ -21,6 +21,7 @@ export default function RootLayout({ children }) {
       >
         <CheckSessionClient />
         {children}
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );

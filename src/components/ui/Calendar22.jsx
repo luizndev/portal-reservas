@@ -4,6 +4,7 @@ import * as React from "react";
 import { ChevronDownIcon } from "lucide-react";
 import { Button } from "./button";
 import { Calendar } from "./calendar";
+import { cn } from "../../lib/utils"
 import { Label } from "./label";
 import {
     Popover,
@@ -11,12 +12,12 @@ import {
     PopoverTrigger,
 } from "./popover";
 
-export function Calendar22({ onChange }) {
+export function Calendar22({ onChange, DateMin, Deselect, classNameInput, classNameLabel }) {
     const [open, setOpen] = React.useState(false);
     const [date, setDate] = React.useState(undefined);
 
     const today = new Date();
-    const minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
+    const minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + DateMin);
 
     const holidays = [
         [1, 1],
@@ -43,9 +44,16 @@ export function Calendar22({ onChange }) {
         return false;
     }
 
+    React.useEffect(() => {
+        if (Deselect && date) {
+            setDate(undefined);
+            if (onChange) onChange(undefined);
+        }
+    }, [Deselect]);
+
     return (
-        <div className="flex flex-col gap-3">
-            <Label htmlFor="date" className="px-1">
+        <div className={"flex flex-col gap-3"}>
+            <Label htmlFor="date" className={cn("px-1", classNameLabel)}>
                 Data da aula
             </Label>
             <Popover open={open} onOpenChange={setOpen}>
@@ -53,7 +61,7 @@ export function Calendar22({ onChange }) {
                     <Button
                         variant="outline"
                         id="date"
-                        className="w-48 justify-between font-normal"
+                        className={cn("w-48 justify-between font-normal", classNameInput)}
                     >
                         {date ? date.toLocaleDateString() : "Selecione a data"}
                         <ChevronDownIcon />

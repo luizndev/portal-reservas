@@ -19,7 +19,7 @@ const page = () => {
             if (userID) {
                 const data = await getEstatistics({ token, userID, email: getCookie('auth_email') });
                 setData(data);
-                console.log(data.futureClasses)
+                // console.log(data.futureClasses)
             }
         };
         fetchEstatistics().finally(() => {

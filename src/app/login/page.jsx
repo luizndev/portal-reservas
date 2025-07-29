@@ -51,7 +51,7 @@ const Page = () => {
           </div>
         </div>
 
-        <Button type="submit" className={`w-full cursor-pointer ${loading ? 'opacity-80 pointer-events-none' : ''}`}>
+        <Button type="submit" className={`w-full  cursor-pointer ${loading ? 'opacity-80 pointer-events-none' : ''}`}>
           {loading ? (
             <LoaderCircle className="animate-spin h-5 w-5 " strokeWidth={2.4} />
           ) : ("Entrar")}

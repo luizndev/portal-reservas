@@ -4,7 +4,7 @@ import { getCookie } from "./cookie";
 export const dataInformation = [];
 
 export async function getEstatistics({ token, userID, email } = {}) {
-    console.log('getEstatistics - email:', email, 'token:', token, 'userID:', userID);
+    // console.log('getEstatistics - email:', email, 'token:', token, 'userID:', userID);
 
     if (!email) {
         console.error('Email não fornecido para getEstatistics.');
