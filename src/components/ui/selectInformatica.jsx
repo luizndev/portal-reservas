@@ -11,28 +11,60 @@ import {
 } from "./select"
 import { cn } from "../../lib/utils"
 
-export function SelectScrollable({ onChange, className }) {
+export function SelectScrollable({ onChange, className, dateDay }) {
+    if (!dateDay) {
+        return (
+            <Select onValueChange={onChange}>
+                <SelectTrigger className={cn("w-full", className)}>
+                    <SelectValue placeholder="Selecione uma data primeiro" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectGroup>
+                        <SelectLabel>Laboratórios</SelectLabel>
+                        <SelectItem value="Laboratório de Informática 1">Laboratório de Informática 1</SelectItem>
+                        <SelectItem value="Laboratório de Informática 2">Laboratório de Informática 2</SelectItem>
+                    </SelectGroup>
+                </SelectContent>
+            </Select>
+        );
+    }
+
+    const [ano, mes, dia] = dateDay.split("-");
+    const date = new Date(`${mes}/${dia}/${ano}`);
+    const dayofSemana = date.getDay();
+
+    const lab9Indisponivel = [1, 3, 4, 5].includes(dayofSemana);
+    const lab8Indisponivel = [3, 5].includes(dayofSemana);
+    const lab5Indisponivel = [1, 2, 3, 4, 5].includes(dayofSemana);
+
     return (
         <Select onValueChange={onChange}>
             <SelectTrigger className={cn("w-full", className)}>
-                <SelectValue placeholder="Selecione um laboratório" />
+                <SelectValue placeholder={`Selecione um laboratório`} />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
                     <SelectLabel>Informática Básica</SelectLabel>
                     <SelectItem value="Laboratório de Informática 1">Laboratório de Informática 1</SelectItem>
                     <SelectItem value="Laboratório de Informática 2">Laboratório de Informática 2</SelectItem>
-                    <SelectItem value="Laboratório de Informática 5">Laboratório de Informática 5</SelectItem>
+                    {!lab5Indisponivel && (
+                        <SelectItem value="Laboratório de Informática 5">Laboratório de Informática 5</SelectItem>
+                    )}
                 </SelectGroup>
                 <SelectGroup>
                     <SelectLabel>Informática Avançada</SelectLabel>
-                    <SelectItem value="Laboratório de Informática 8">Laboratório de Informática 8</SelectItem>
-                    <SelectItem value="Laboratório de Informática 9">Laboratório de Informática 9</SelectItem>
+                    {!lab8Indisponivel && (
+                        <SelectItem value="Laboratório de Informática 8">Laboratório de Informática 8</SelectItem>
+                    )}
+                    {!lab9Indisponivel && (
+                        <SelectItem value="Laboratório de Informática 9">Laboratório de Informática 9</SelectItem>
+                    )}
                 </SelectGroup>
             </SelectContent>
         </Select>
-    )
+    );
 }
+
 
 
 const listMultidisciplinar = [

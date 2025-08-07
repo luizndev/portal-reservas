@@ -45,6 +45,7 @@ const page = () => {
                                 <LaptopMinimal size={16} /> Informática
                             </button>
                             <button
+                                style={{pointerEvents: "none"}}
                                 onClick={() => setFormPage("multidisciplinar")}
                                 className={`w-full md:w-auto cursor-pointer inline-flex justify-center items-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium shadow-theme-xs
                                     ${formPage === "multidisciplinar" ? "bg-black text-white" : "text-gray-700 hover:bg-gray-200 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.03]"}`}

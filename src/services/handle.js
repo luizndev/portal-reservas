@@ -134,6 +134,16 @@ const generateTokenTI = () => {
   return token;
 };
 
+const generateTokenEquipamento = () => {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let token = "EQP-";
+  for (let i = 0; i < 6; i++) {
+    token += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return token;
+};
+
 const generateTokenLab = () => {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -144,3 +154,54 @@ const generateTokenLab = () => {
   return token;
 };
 
+
+
+
+
+
+
+export async function handleReservationEquiment(e, selectedDate, selectEquipament, setLoading, router) {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData.entries());
+
+  if (data.terms !== "on") {
+    alert("Você deve aceitar os termos de uso do Laboratório de Informática para prosseguir");
+    return;
+  }
+
+  data.data = selectedDate;
+  data.equipamento = selectEquipament;
+  data.token = generateTokenEquipamento();
+  data.professor = formData.get("professor");
+  data.email = formData.get("email");
+  data.ambiente = formData.get("ambiente");
+  data.observacao = formData.get("observacao");
+  data.userID = getCookie('auth_userID');
+
+  const requiredFields = ["professor", "email"];
+  for (const field of requiredFields) {
+    if (!data[field]) {
+      alert(`Campo obrigatório não preenchido: ${field}`);
+      return;
+    }
+  }
+
+  try {
+    setLoading(true);
+    const response = await api.post("/equipamento", data);
+
+    if (response?.data?.token) {
+      console.log("Formulário enviado", data);
+      router.push(`/sucess?token=${response.data.token}`);
+    } else {
+      setLoading(false);
+      alert("Erro ao registrar reserva.");
+    }
+  } catch (error) {
+    setLoading(false);
+    alert("Erro ao fazer a reserva. Tente novamente.");
+    console.error(error);
+  }
+
+}

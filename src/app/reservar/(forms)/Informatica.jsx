@@ -112,11 +112,14 @@ const Informatica = () => {
                 <Input id="alunos" type="number" name="alunos" placeholder="Digite a quantidade de alunos" className={errors.alunos ? "border-red-500 text-red-500  focus:outline-red-500 " : ""} />
             </div>
 
-            <div className="flex flex-col space-y-2 mt-4">
-                <label htmlFor="laboratorio" className={`text-sm font-medium ${errors.laboratorio ? "text-red-500 text-sm font-medium" : "text-sm font-medium"}`}>Laboratório</label>
-                {/* <Input id="laboratorio" type="select" name="laboratorio" placeholder="Selecione o laboratório" /> */}
-                <SelectScrollable onChange={(lab) => setSelectLab(lab)} className={errors.laboratorio ? "border-red-500 text-red-500  focus:outline-red-500 " : ""}/>
-            </div>
+
+            {selectLab ? (
+                <div className="flex flex-col space-y-2 mt-4">
+                    <label htmlFor="laboratorio" className={`text-sm font-medium ${errors.laboratorio ? "text-red-500 text-sm font-medium" : "text-sm font-medium"}`}>Laboratório</label>
+                    {/* <Input id="laboratorio" type="select" name="laboratorio" placeholder="Selecione o laboratório" /> */}
+                    <SelectScrollable onChange={(lab) => setSelectLab(lab)} dateDay={selectedDate} className={errors.laboratorio ? "border-red-500 text-red-500  focus:outline-red-500 " : ""}/>
+                </div>
+            ): ""} 
 
 
 

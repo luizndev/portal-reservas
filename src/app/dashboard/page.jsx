@@ -62,7 +62,7 @@ const page = () => {
               <Metric name="Total de Reservas" value={Number(data && data.allClasses ? data.allClasses.length : 0)} icon="FlaskConical" />
               <Metric name="Pendentes" value={Number(data && data.futureClasses ? data.futureClasses.length : 0)} icon="Watch" />
               <Metric name="Concluídas" value={Number(data && data.pastClasses ? data.pastClasses.length : 0)} icon="BadgeCheck" />
-              <Metric name="Minha Avaliação" value={7.5} icon="Sparkle" />
+              <Metric name="Minha Avaliação" value={"--"} icon="Sparkle" />
             </div>
             <div>
               {(data && Array.isArray(data.nextReservation) && data.nextReservation.length > 0) ? (
